@@ -2,13 +2,12 @@ import pepe.*
 
 describe "Sueldo Pepe" {
 
-	
 	test "pepe cadete, monto fijo, presentismo normal, 3 faltas" {
 		pepe.categoria(cadete)
 		pepe.bonoResultado(fijo)
 		pepe.bonoPresentismo(normal)
 		pepe.faltas(3)
-		assert.equals( 20800, pepe.sueldo())
+		assert.equals(20800, pepe.sueldo())
 	}
 
 	test "pepe gerente, porcentaje, presentismo nulo" {
@@ -16,17 +15,17 @@ describe "Sueldo Pepe" {
 		pepe.bonoResultado(porcentual)
 		pepe.bonoPresentismo(presentismoNulo)
 		pepe.faltas(3)
-		assert.equals( 16500, pepe.sueldo())
+		assert.equals(16500, pepe.sueldo())
 	}
-	
+
 	test "pepe cadete, porcentaje, presentismo normal, 0 faltas" {
 		pepe.categoria(cadete)
 		pepe.bonoResultado(porcentual)
 		pepe.bonoPresentismo(normal)
 		pepe.faltas(0)
-		assert.equals( 24000, pepe.sueldo())
+		assert.equals(24000, pepe.sueldo())
 	}
-	
+
 	test "pepe cadete, porcentaje, presentismo normal, 1 falta" {
 		pepe.categoria(cadete)
 		pepe.bonoResultado(porcentual)
@@ -34,4 +33,58 @@ describe "Sueldo Pepe" {
 		pepe.faltas(1)
 		assert.equals(23000, pepe.sueldo())
 	}
+
 }
+
+//------------- TESTS DE BONUS --------------
+
+describe "bonus" {
+	
+	test "sofia cadete con resultado fijo" {
+		sofia.categoria(cadete)
+		sofia.bonoResultado(fijo)
+		assert.equals(26800, sofia.sueldo())
+		
+	}
+	
+	test "sofia gerente con resultado por porcentaje" {
+		sofia.categoria(gerente)
+		sofia.bonoResultado(porcentual)
+		assert.equals(21450, sofia.sueldo())
+		
+	}
+	
+	
+	test "sofia cadete con resultado fijo, pepe cadete medio tiempo, resultados porcentaje y presentismo demagogico" {
+		sofia.categoria(cadete)
+		sofia.bonoResultado(fijo)
+		assert.equals(26800, sofia.sueldo())
+		medioTiempo.categoriaBase(cadete)
+		pepe.categoria(medioTiempo)
+		pepe.bonoResultado(porcentual)
+		pepe.bonoPresentismo(demagogico)
+		pepe.faltas(1)
+		assert.equals(11500, pepe.sueldo())
+	}
+	
+	
+	
+	test "punto 4" {
+		medioTiempo.categoriaBase(cadete)
+		pepe.categoria(medioTiempo)
+		pepe.bonoResultado(porcentual)
+		pepe.bonoPresentismo(demagogico)
+		pepe.faltas(1)
+		roque.bonoResultado(fijo)
+		ernesto.companiero(pepe)
+	  	ernesto.bonoPresentismo(ajuste)
+	  	assert.equals(11500, pepe.sueldo())
+	  	assert.equals(37800, roque.sueldo())
+	  	assert.equals(10100, ernesto.sueldo())
+	}
+}
+
+
+
+
+
